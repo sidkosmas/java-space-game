@@ -1,13 +1,16 @@
-package org.ergasia;
+package org.ergasia.javaspacegame;
 
 import java.awt.Image;
+import java.io.IOException;
+import java.util.Objects;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
  * This class is our spaceship(an8rwpaki) object
  * and its mission is to move right or left firing
  * UFOs.
- * 
+ *
  * @author Kosmas Sidiropoulos 2114111
  *
  */
@@ -25,13 +28,18 @@ public class Spaceship {
      * The Constructor.
      * Sets the position and the image of the object
      */
-    public Spaceship() {    	
-    	ImageIcon ii = new ImageIcon(getClass().getResource("/resources/ship.png"));
-        image = ii.getImage();
+    public Spaceship() {
+		ImageIcon ii = null;
+		try {
+			ii = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/ship.png"))));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		image = ii.getImage();
         x = 380;
 		y = 555;
     }
-    
+
     /**
      * The update method which will move the object
      * depending of the dx value.
@@ -39,23 +47,23 @@ public class Spaceship {
     public void update() {
     	x += dx;
     }
-    
+
     /**
      * if the player typed the right keyboard button
      * the dx value increases, so the object moves right.
-     * 
+     *
      */
     public void moveRight(){
 		if(dx < 5){
 			dx = 1;
 			dx += 4;
-		}	
+		}
 	}
-		
+
     /**
      * if the player typed the left keyboard button
      * the dx value decreases, so the object moves left.
-     * 
+     *
      */
     public void moveLeft(){
 		if(x > 40){
@@ -65,7 +73,7 @@ public class Spaceship {
 			}
 		}
 	}
-	
+
     /**
      * If the key pressed by the player is released
      * the dx value is eventually set to 0 so the object
@@ -86,25 +94,25 @@ public class Spaceship {
 
 	/**
 	 * Get the x-dimension value.
-	 * 
+	 *
 	 * @return The x-dimension value.
 	 */
     public int getX() {
         return x;
     }
-    
+
     /**
      * Get the speed of the object.
-     * 
+     *
      * @return The speed of the object.
      */
     public int getDx() {
 		return dx;
 	}
-    
+
     /**
      * Get the y-dimension value.
-     * 
+     *
      * @return The y-dimension value.
      */
     public int getY() {
@@ -113,7 +121,7 @@ public class Spaceship {
 
     /**
      * Get the image of the object.
-     * 
+     *
      * @return The image of the object.
      */
     public Image getImage() {
